@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEC 2026 – Maritime Ecosystem Camp | Rafael Sukirno, CE</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Barlow+Condensed:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#020B18;--navy2:#061A2E;--ocean:#0A3860;
+  --cyan:#00C8FF;--cyan2:#00E5FF;--gold:#FFD700;
+  --silver:#B8C8D8;--white:#F0F8FF;
+  --glass:rgba(0,200,255,0.07);--glassborder:rgba(0,200,255,0.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--navy);color:var(--white);font-family:'Barlow Condensed',sans-serif;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:3px}
+
+/* NAVBAR */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(2,11,24,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--glassborder)}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:62px}
+.nav-logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.2rem;color:var(--cyan);letter-spacing:3px;text-decoration:none}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--silver);font-size:.76rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:6px 9px;border-radius:4px;cursor:pointer;text-decoration:none;border:1px solid transparent;transition:all .2s;display:inline-block}
+.nav-links a:hover{color:var(--cyan);border-color:var(--glassborder);background:var(--glass)}
+.nav-links a.active{color:var(--cyan);border-color:var(--glassborder);background:var(--glass)}
+.nav-cta{background:linear-gradient(135deg,var(--cyan),#0077BB)!important;color:#000!important;font-weight:700!important;border-color:transparent!important}
+.nav-cta:hover{transform:scale(1.04)!important;box-shadow:0 0 16px rgba(0,200,255,.4)!important}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.ham span{width:24px;height:2px;background:var(--cyan);border-radius:2px;transition:.3s;display:block}
+@media(max-width:1000px){
+  .nav-links{display:none;position:fixed;top:62px;left:0;right:0;background:rgba(2,11,24,.98);flex-direction:column;padding:14px;border-bottom:1px solid var(--glassborder);z-index:9998}
+  .nav-links.open{display:flex}
+  .ham{display:flex}
+  .nav-links a{width:100%;padding:10px 14px;font-size:.85rem}
+}
+
+/* SECTIONS */
+section{scroll-margin-top:70px}
+.sec{padding:80px 24px;max-width:1400px;margin:0 auto}
+.sec-alt{background:var(--navy2)}
+.sec-alt .sec{padding:80px 24px}
+.sec-wrap{padding:0}
+.stag{font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.72rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:10px}
+.stit{font-family:'Orbitron',sans-serif;font-weight:700;font-size:clamp(1.5rem,3.5vw,2.5rem);color:var(--white);margin-bottom:14px;line-height:1.2}
+.stit .g{background:linear-gradient(90deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ssub{color:var(--silver);font-size:1rem;max-width:600px;line-height:1.7;margin-bottom:40px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--glassborder),transparent);margin:0}
+
+/* HERO */
+#home{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 50%,rgba(0,100,180,.2) 0,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(0,200,255,.1) 0,transparent 50%),var(--navy)}
+.hero-cont{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:100px 24px 60px}
+.hero-eye{font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.75rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero-eye::before{content:'';width:36px;height:1px;background:var(--cyan)}
+.hero-tit{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(2.2rem,7vw,5.2rem);line-height:1;color:var(--white);margin-bottom:6px}
+.hero-tit .ac{background:linear-gradient(90deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-yr{font-family:'Orbitron',sans-serif;font-size:clamp(.9rem,2.5vw,1.6rem);color:var(--gold);letter-spacing:6px;margin-bottom:22px}
+.hero-sub{font-size:1.1rem;color:var(--silver);max-width:600px;line-height:1.7;margin-bottom:36px;font-weight:300}
+.hero-sub strong{color:var(--cyan);font-weight:600}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:50px}
+.btn{padding:12px 26px;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;transition:all .25s;text-decoration:none;display:inline-block}
+.btn-p{background:linear-gradient(135deg,var(--cyan),#0088CC);color:#000;box-shadow:0 4px 18px rgba(0,200,255,.3)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,200,255,.5)}
+.btn-o{background:transparent;color:var(--cyan);border:1px solid var(--cyan)}
+.btn-o:hover{background:rgba(0,200,255,.1)}
+.btn-g{background:linear-gradient(135deg,var(--gold),#CC9900);color:#000}
+.btn-g:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,215,0,.4)}
+.hero-stats{display:flex;gap:36px;flex-wrap:wrap}
+.stat{border-left:2px solid var(--cyan);padding-left:14px}
+.stat-n{font-family:'Orbitron',sans-serif;font-size:1.7rem;font-weight:700;color:var(--cyan)}
+.stat-l{font-size:.76rem;color:var(--silver);letter-spacing:2px;margin-top:3px}
+/* Floating particles */
+#ptc{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.p{position:absolute;border-radius:50%;animation:flt linear infinite}
+@keyframes flt{0%{transform:translateY(100vh);opacity:0}10%{opacity:.6}90%{opacity:.2}100%{transform:translateY(-80px);opacity:0}}
+
+/* CARDS */
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:22px}
+.card{background:var(--glass);border:1px solid var(--glassborder);border-radius:12px;padding:26px;transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--gold));transform:scaleX(0);transform-origin:left;transition:.3s}
+.card:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 12px 36px rgba(0,200,255,.15)}
+.card:hover::before{transform:scaleX(1)}
+.ci{font-size:2rem;margin-bottom:14px}
+.ct{font-family:'Orbitron',sans-serif;font-size:.88rem;font-weight:700;color:var(--cyan);letter-spacing:1px;margin-bottom:8px}
+.cx{color:var(--silver);font-size:.88rem;line-height:1.6}
+.ctag{display:inline-block;margin-top:12px;padding:3px 10px;background:rgba(0,200,255,.1);border:1px solid rgba(0,200,255,.25);border-radius:20px;font-size:.7rem;color:var(--cyan);letter-spacing:1px}
+
+/* ABOUT */
+.abt-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+@media(max-width:768px){.abt-grid{grid-template-columns:1fr}}
+.abt-badge{background:linear-gradient(135deg,var(--ocean),var(--navy2));border:1px solid var(--glassborder);border-radius:14px;padding:36px;text-align:center}
+.fn{font-family:'Orbitron',sans-serif;font-size:1.2rem;font-weight:700;color:var(--gold);margin-bottom:4px}
+.ft{color:var(--cyan);font-size:.82rem;letter-spacing:2px;margin-bottom:18px}
+.fb{color:var(--silver);font-size:.9rem;line-height:1.7}
+.abt-pts{display:flex;flex-direction:column;gap:14px;margin-top:0}
+.apt{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:8px;background:var(--glass);border:1px solid var(--glassborder);cursor:pointer;transition:.25s}
+.apt:hover{border-color:var(--cyan)}
+.apt-ic{font-size:1.4rem;flex-shrink:0;margin-top:2px}
+.apt h4{color:var(--cyan);font-size:.86rem;font-weight:700;letter-spacing:1px;margin-bottom:3px}
+.apt p{color:var(--silver);font-size:.84rem;line-height:1.55}
+
+/* TIMELINE */
+.tl{position:relative;padding-left:38px}
+.tl::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--cyan),var(--gold),transparent)}
+.ph{position:relative;margin-bottom:36px}
+.ph-dot{position:absolute;left:-31px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--navy);border:2px solid var(--cyan);box-shadow:0 0 10px rgba(0,200,255,.4)}
+.ph-dot.gd{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,.4)}
+.ph-hd{display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;padding:8px;border-radius:6px;transition:.2s}
+.ph-hd:hover{background:var(--glass)}
+.ph-num{font-family:'Orbitron',sans-serif;font-size:.68rem;font-weight:700;color:var(--cyan);letter-spacing:2px;padding:3px 7px;background:rgba(0,200,255,.1);border-radius:3px}
+.ph-tit{font-family:'Orbitron',sans-serif;font-size:.95rem;font-weight:700;color:var(--white)}
+.ph-date{margin-left:auto;color:var(--silver);font-size:.74rem}
+.ph-body{background:var(--glass);border:1px solid var(--glassborder);border-radius:8px;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.ph-body{grid-template-columns:1fr}}
+.ph-tasks h5,.ph-out h5{font-size:.7rem;letter-spacing:2px;color:var(--cyan);margin-bottom:8px;text-transform:uppercase}
+.ph-tasks ul{list-style:none}
+.ph-tasks ul li{color:var(--silver);font-size:.85rem;padding:2px 0 2px 13px;position:relative}
+.ph-tasks ul li::before{content:'▸';position:absolute;left:0;color:var(--cyan)}
+.ob{background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,215,0,.04));border:1px solid rgba(255,215,0,.25);border-radius:6px;padding:9px 12px;color:var(--gold);font-family:'Orbitron',sans-serif;font-size:.76rem;letter-spacing:1px}
+
+/* DATABASE */
+.db-dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:36px}
+.dbc{background:var(--glass);border:1px solid var(--glassborder);border-radius:10px;padding:18px;text-align:center;cursor:pointer;transition:.25s}
+.dbc:hover{border-color:var(--cyan);transform:scale(1.03)}
+.db-n{font-family:'Orbitron',sans-serif;font-size:1.9rem;font-weight:700;color:var(--cyan)}
+.db-l{font-size:.72rem;color:var(--silver);letter-spacing:2px;margin-top:5px;text-transform:uppercase}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.tbl th{background:rgba(0,200,255,.08);color:var(--cyan);padding:9px 12px;text-align:left;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--glassborder)}
+.tbl td{padding:9px 12px;color:var(--silver);border-bottom:1px solid rgba(255,255,255,.04)}
+.tbl tr:hover td{background:rgba(0,200,255,.04)}
+.bdg{display:inline-block;padding:2px 9px;border-radius:10px;font-size:.7rem;font-weight:700;letter-spacing:.8px}
+.bg{background:rgba(0,255,150,.12);color:#00FF96;border:1px solid rgba(0,255,150,.25)}
+.bc{background:rgba(0,200,255,.12);color:var(--cyan);border:1px solid var(--glassborder)}
+.bo{background:rgba(255,215,0,.12);color:var(--gold);border:1px solid rgba(255,215,0,.25)}
+.br{background:rgba(255,80,80,.1);color:#FF8080;border:1px solid rgba(255,80,80,.18)}
+
+/* TRAINING */
+.tr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.tc{background:var(--glass);border:1px solid var(--glassborder);border-radius:12px;overflow:hidden;transition:.3s;cursor:pointer}
+.tc:hover{transform:translateY(-5px);box-shadow:0 14px 44px rgba(0,200,255,.18)}
+.tc-hd{padding:22px;border-bottom:1px solid var(--glassborder);position:relative}
+.tc-lv{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
+.tc-lv.bas{color:#00FF96}.tc-lv.int{color:var(--cyan)}.tc-lv.adv{color:var(--gold)}
+.tc-nm{font-family:'Orbitron',sans-serif;font-size:.95rem;font-weight:700;color:var(--white)}
+.tc-pr{position:absolute;top:22px;right:20px;font-family:'Orbitron',sans-serif;font-size:.8rem;font-weight:700;color:var(--gold)}
+.tc-bd{padding:18px}
+.tc-it{display:flex;gap:8px;padding:5px 0;color:var(--silver);font-size:.85rem}
+.tc-it::before{content:'✓';color:var(--cyan);font-weight:700;flex-shrink:0}
+.tc-ft{padding:14px 18px;border-top:1px solid var(--glassborder)}
+.tc-btn{width:100%;padding:9px;border-radius:6px;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:2px;font-size:.82rem;text-transform:uppercase;transition:.25s}
+.tc-btn.bas{background:rgba(0,255,150,.12);color:#00FF96}
+.tc-btn.int{background:rgba(0,200,255,.12);color:var(--cyan)}
+.tc-btn.adv{background:rgba(255,215,0,.12);color:var(--gold)}
+.tc-btn:hover{filter:brightness(1.35)}
+
+/* LIVE */
+.plat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:40px}
+.plat{display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 14px;border-radius:12px;border:1px solid var(--glassborder);background:var(--glass);cursor:pointer;transition:.3s;text-decoration:none}
+.plat:hover{transform:translateY(-4px)}
+.plat.tk:hover{background:rgba(255,0,80,.07);border-color:rgba(255,0,80,.4);box-shadow:0 8px 28px rgba(255,0,80,.18)}
+.plat.yt:hover{background:rgba(255,0,0,.07);border-color:rgba(255,0,0,.4);box-shadow:0 8px 28px rgba(255,0,0,.18)}
+.plat.ig:hover{background:rgba(200,100,255,.07);border-color:rgba(200,100,255,.4)}
+.plat.fb:hover{background:rgba(66,100,255,.07);border-color:rgba(66,100,255,.4)}
+.plat.li:hover{background:rgba(0,120,200,.07);border-color:rgba(0,120,200,.4)}
+.plat-ic{font-size:2.4rem}
+.plat-nm{font-family:'Orbitron',sans-serif;font-size:.76rem;font-weight:700;color:var(--white)}
+.plat-ac{font-size:.72rem;color:var(--silver);letter-spacing:.5px}
+.sched{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.sc{background:var(--glass);border:1px solid var(--glassborder);border-radius:10px;padding:18px}
+.sc-day{font-family:'Orbitron',sans-serif;font-size:.72rem;color:var(--cyan);letter-spacing:2px;margin-bottom:6px}
+.sc-top{color:var(--white);font-size:.9rem;font-weight:600;margin-bottom:5px}
+.sc-host{color:var(--silver);font-size:.78rem}
+.ldot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#FF3B3B;box-shadow:0 0 7px #FF3B3B;animation:pu 1.5s infinite;margin-right:5px}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* COMMUNITY */
+.cm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.cm{background:var(--glass);border:1px solid var(--glassborder);border-radius:12px;padding:22px;text-align:center;transition:.3s;cursor:pointer}
+.cm:hover{transform:translateY(-4px);border-color:var(--cyan)}
+.cm-ic{font-size:2.2rem;margin-bottom:10px}
+.cm-nm{font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;color:var(--white);margin-bottom:5px}
+.cm-cn{font-family:'Orbitron',sans-serif;font-size:1.4rem;color:var(--cyan);margin-bottom:7px}
+.cm-tx{color:var(--silver);font-size:.82rem;line-height:1.55}
+.cm-j{display:inline-block;margin-top:12px;padding:7px 18px;background:rgba(0,200,255,.1);border:1px solid rgba(0,200,255,.28);border-radius:20px;font-size:.72rem;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;font-weight:700;text-decoration:none;transition:.2s}
+.cm-j:hover{background:rgba(0,200,255,.2)}
+
+/* DASHBOARD */
+.dash-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:28px}
+.kpi{background:var(--glass);border:1px solid var(--glassborder);border-radius:10px;padding:18px}
+.kpi-l{font-size:.7rem;color:var(--silver);letter-spacing:2px;text-transform:uppercase;margin-bottom:7px}
+.kpi-v{font-family:'Orbitron',sans-serif;font-size:1.7rem;font-weight:700;color:var(--cyan)}
+.kpi-s{font-size:.76rem;color:var(--silver);margin-top:3px}
+.up{color:#00FF96}.dn{color:#FF8080}
+.ch-row{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:18px}
+@media(max-width:700px){.ch-row{grid-template-columns:1fr}}
+.ch{background:var(--glass);border:1px solid var(--glassborder);border-radius:10px;padding:18px}
+.ch-t{font-family:'Orbitron',sans-serif;font-size:.76rem;color:var(--cyan);letter-spacing:1px;margin-bottom:14px}
+.br-chart{display:flex;flex-direction:column;gap:9px}
+.br-row{display:flex;align-items:center;gap:10px}
+.br-lb{width:76px;font-size:.74rem;color:var(--silver);text-align:right;flex-shrink:0}
+.br-tr{flex:1;height:7px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+.br-fi{height:100%;border-radius:4px}
+.c1{background:linear-gradient(90deg,var(--cyan),#005580)}
+.c2{background:linear-gradient(90deg,var(--gold),#886600)}
+.c3{background:linear-gradient(90deg,#00FF96,#008050)}
+.br-vl{width:36px;font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--white)}
+.do-wrap{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+.do-it{display:flex;align-items:center;gap:9px}
+.do-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.do-tx{font-size:.8rem;color:var(--silver)}
+.do-pc{margin-left:auto;font-family:'Share Tech Mono',monospace;font-size:.76rem;color:var(--white)}
+
+/* TEAM */
+.tm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.tm{background:var(--glass);border:1px solid var(--glassborder);border-radius:12px;padding:22px;text-align:center;transition:.3s;cursor:pointer}
+.tm:hover{border-color:var(--cyan);transform:translateY(-4px)}
+.tm-av{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--ocean),var(--navy));border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 12px}
+.tm-nm{font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:700;color:var(--white);margin-bottom:3px}
+.tm-rl{font-size:.76rem;color:var(--cyan);letter-spacing:1px;margin-bottom:9px}
+.tm-tk{list-style:none;font-size:.78rem;color:var(--silver);line-height:1.8}
+
+/* CONTACT */
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+@media(max-width:700px){.ct-grid{grid-template-columns:1fr}}
+.ct-info{display:flex;flex-direction:column;gap:18px}
+.ci-row{display:flex;gap:14px;align-items:flex-start}
+.ci-ic{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+.ci-lb{font-size:.72rem;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.ci-vl{color:var(--silver);font-size:.9rem}
+.ci-vl a{color:var(--cyan);text-decoration:none}
+.ci-vl a:hover{text-decoration:underline}
+.ct-form{display:flex;flex-direction:column;gap:12px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:.72rem;color:var(--cyan);letter-spacing:1px}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.05);border:1px solid var(--glassborder);border-radius:6px;padding:11px 13px;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.92rem;transition:.2s;outline:none;width:100%}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--cyan);background:rgba(0,200,255,.05)}
+.fg textarea{resize:vertical;min-height:90px}
+.fg select option{background:var(--navy2);color:var(--white)}
+
+/* FOOTER */
+footer{background:var(--navy2);border-top:1px solid var(--glassborder);padding:50px 24px 26px}
+.ft-inner{max-width:1400px;margin:0 auto}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
+@media(max-width:860px){.ft-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.ft-grid{grid-template-columns:1fr}}
+.ft-brand .logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.3rem;color:var(--cyan);letter-spacing:3px;margin-bottom:10px}
+.ft-brand .logo span{color:var(--gold)}
+.ft-brand p{color:var(--silver);font-size:.84rem;line-height:1.65;max-width:280px}
+.ft-col h4{font-family:'Orbitron',sans-serif;font-size:.7rem;font-weight:700;color:var(--cyan);letter-spacing:2px;margin-bottom:14px;text-transform:uppercase}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.ft-col ul li a{color:var(--silver);font-size:.84rem;text-decoration:none;transition:.2s;cursor:pointer}
+.ft-col ul li a:hover{color:var(--cyan)}
+.ft-bot{border-top:1px solid var(--glassborder);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.ft-bot p{color:var(--silver);font-size:.76rem}
+.ft-bot .hl{color:var(--cyan)}
+.socs{display:flex;gap:10px}
+.soc{width:34px;height:34px;border-radius:7px;border:1px solid var(--glassborder);display:flex;align-items:center;justify-content:center;font-size:.9rem;cursor:pointer;transition:.2s;text-decoration:none;color:var(--silver)}
+.soc:hover{border-color:var(--cyan);color:var(--cyan);background:var(--glass)}
+
+/* SCROLL TOP */
+#st{position:fixed;bottom:22px;right:22px;z-index:9998;width:42px;height:42px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--ocean));border:none;cursor:pointer;color:#000;font-size:1rem;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:.3s;box-shadow:0 4px 18px rgba(0,200,255,.3)}
+#st.show{opacity:1;transform:translateY(0)}
+
+/* POPUP */
+#pov{position:fixed;inset:0;z-index:99999;background:rgba(2,11,24,.87);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .28s}
+#pov.on{opacity:1;pointer-events:all}
+#pbox{background:linear-gradient(135deg,var(--navy2),rgba(6,26,46,.99));border:1px solid var(--glassborder);border-radius:14px;max-width:660px;width:100%;max-height:88vh;overflow-y:auto;position:relative;transform:scale(.94) translateY(18px);transition:transform .28s;box-shadow:0 28px 70px rgba(0,200,255,.14)}
+#pov.on #pbox{transform:scale(1) translateY(0)}
+#ph{padding:26px 30px 18px;border-bottom:1px solid var(--glassborder);display:flex;align-items:flex-start;justify-content:space-between;gap:14px;position:sticky;top:0;background:rgba(6,26,46,.99);border-radius:14px 14px 0 0;z-index:2}
+#ptit{font-family:'Orbitron',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan)}
+#ptag{font-size:.7rem;color:var(--silver);letter-spacing:2px;margin-top:3px}
+#pcl{width:30px;height:30px;border-radius:50%;border:1px solid var(--glassborder);background:transparent;color:var(--silver);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s}
+#pcl:hover{border-color:var(--cyan);color:var(--cyan);background:var(--glass)}
+#pbdy{padding:22px 30px}
+.ps{margin-bottom:18px}
+.ps h4{font-family:'Orbitron',sans-serif;font-size:.68rem;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--glassborder)}
+.ps p,.ps li{color:var(--silver);font-size:.88rem;line-height:1.68}
+.ps ul{list-style:none;display:flex;flex-direction:column;gap:5px;padding-left:0}
+.ps ul li{padding-left:14px;position:relative}
+.ps ul li::before{content:'▸';position:absolute;left:0;color:var(--cyan)}
+.pk{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:7px}
+.pk-pill{background:rgba(0,200,255,.07);border:1px solid var(--glassborder);border-radius:7px;padding:9px;text-align:center}
+.pk-pill strong{display:block;font-family:'Orbitron',sans-serif;font-size:.82rem;color:var(--cyan)}
+.pk-pill span{display:block;font-size:.68rem;color:var(--silver);letter-spacing:.8px;margin-top:3px}
+.pacts{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--glassborder)}
+.pb{padding:9px 20px;border-radius:6px;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:2px;font-size:.82rem;text-transform:uppercase;text-decoration:none;display:inline-block;transition:.25s}
+.pb-p{background:linear-gradient(135deg,var(--cyan),#0088CC);color:#000}
+.pb-p:hover{transform:scale(1.04)}
+.pb-o{background:transparent;color:var(--cyan);border:1px solid var(--cyan)}
+.pb-o:hover{background:rgba(0,200,255,.1)}
+.pb-g{background:linear-gradient(135deg,var(--gold),#CC9900);color:#000}
+.pb-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff}
+.pb-wa:hover{transform:scale(1.04)}
+.pb-yt{background:linear-gradient(135deg,#FF0000,#CC0000);color:#fff}
+.pb-tk{background:linear-gradient(135deg,#FF0050,#CC003A);color:#fff}
+</style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div id="ptc"></div>
+<!-- SCROLL TOP -->
+<button id="st" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<!-- ████████████████ NAVBAR ████████████████ -->
+<nav id="navbar">
+<div class="nav-inner">
+  <a href="#home" class="nav-logo">MEC <span>2026</span></a>
+  <div class="ham" id="hamBtn" onclick="hamToggle()">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" onclick="hamClose()">Home</a>
+    <a href="#about" onclick="hamClose()">About</a>
+    <a href="#action" onclick="hamClose()">Action Plan</a>
+    <a href="#database" onclick="hamClose()">Database</a>
+    <a href="#training" onclick="hamClose()">Training</a>
+    <a href="#assessment" onclick="hamClose()">Assessment</a>
+    <a href="#certification" onclick="hamClose()">Certification</a>
+    <a href="#community" onclick="hamClose()">Community</a>
+    <a href="#live" onclick="hamClose()">Live</a>
+    <a href="#recruitment" onclick="hamClose()">Recruitment</a>
+    <a href="#partnership" onclick="hamClose()">Partnership</a>
+    <a href="#dashboard" onclick="hamClose()">Dashboard</a>
+    <a href="#contact" onclick="hamClose()" class="nav-cta">Contact</a>
+  </div>
+</div>
+</nav>
+
+<!-- ████████████████ HERO ████████████████ -->
+<section id="home">
+<div class="hero-cont">
+  <div class="hero-eye">Maritime Ecosystem Operating System</div>
+  <div class="hero-tit">Maritime<br><span class="ac">Ecosystem</span><br>Camp</div>
+  <div class="hero-yr">MEC 2026</div>
+  <p class="hero-sub">Building Future Maritime Competency Through <strong>Assessment</strong>, <strong>Training</strong>, <strong>Certification</strong>, <strong>Technology</strong>, and <strong>Community</strong>.</p>
+  <div class="hero-btns">
+    <a href="https://forms.google.com" target="_blank" class="btn btn-p">📋 Start Survey</a>
+    <button class="btn btn-o" onclick="showPopup('community')">🌐 Join Community</button>
+    <a href="#action" class="btn btn-o">📊 Action Plan</a>
+    <button class="btn btn-g" onclick="showPopup('partner')">🤝 Become Partner</button>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n" id="s1">0</div><div class="stat-l">Target Database</div></div>
+    <div class="stat"><div class="stat-n" id="s2">0</div><div class="stat-l">Community Target</div></div>
+    <div class="stat"><div class="stat-n" id="s3">0</div><div class="stat-l">Training Programs</div></div>
+    <div class="stat"><div class="stat-n" id="s4">0</div><div class="stat-l">Certified Target</div></div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ████████████████ ABOUT ████████████████ -->
+<section id="about">
+<div class="sec">
+  <div class="stag">— About MEC 2026</div>
+  <div class="stit">Indonesia's First <span class="g">Maritime Ecosystem</span></div>
+  <div class="ssub">Bukan sekadar training center — ini Maritime Operating System yang menghubungkan taruna, pelaut, perusahaan, dan akademi dalam satu ekosistem digital.</div>
+  <div class="abt-grid">
+    <div>
+      <div class="abt-badge">
+        <div style="font-size:2.8rem;margin-bottom:14px">⚓</div>
+        <div class="fn">Rafael Sukirno, CE</div>
+        <div class="ft">Founder & Academic Director</div>
+        <p class="fb">30+ tahun pengalaman seafaring aktif (1991–2021). Marine Engineering Instructor di Politeknik Pelayaran Surabaya & Universitas Hang Tuah Surabaya. Co-Founder MEC & SMK Samudera Nusantara, Kediri. Under Yayasan LMMES, Kampung Inggris Pare.</p>
+        <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-p" style="padding:8px 16px;font-size:.76rem">💬 WhatsApp</a>
+          <button class="btn btn-o" style="padding:8px 16px;font-size:.76rem" onclick="showPopup('founder')">👤 Profile</button>
+        </div>
+      </div>
+    </div>
+    <div class="abt-pts">
+      <div class="apt" onclick="showPopup('db_concept')"><div class="apt-ic">🗄️</div><div><h4>Database Center</h4><p>1,000+ maritime professionals dalam sistem terpusat — taruna, pelaut, officer, captain, dan shipping company.</p></div></div>
+      <div class="apt" onclick="showPopup('training_concept')"><div class="apt-ic">🎓</div><div><h4>Training & Assessment Center</h4><p>Program Basic–Intermediate–Advanced dengan assessment Marlins, English, Interview, dan Technical Test.</p></div></div>
+      <div class="apt" onclick="showPopup('cert_concept')"><div class="apt-ic">📜</div><div><h4>Certification & Recruitment</h4><p>MEC Certified Candidates langsung terhubung dengan shipping company partner untuk rekrutmen.</p></div></div>
+      <div class="apt" onclick="showPopup('live_concept')"><div class="apt-ic">📡</div><div><h4>Live Streaming & Community</h4><p>Daily live di TikTok, YouTube, Instagram untuk membangun trust dan generate leads secara konsisten.</p></div></div>
+    </div>
+  </div>
+  <div style="margin-top:40px">
+    <div class="g4">
+      <div class="card" onclick="showPopup('db_concept')"><div class="ci">🗄️</div><div class="ct">Database Center</div><div class="cx">1,000+ maritime professionals dalam sistem terpusat.</div><div class="ctag">TARGET 2026</div></div>
+      <div class="card" onclick="showPopup('training_concept')"><div class="ci">🎓</div><div class="ct">Training Center</div><div class="cx">6 program berjenjang Basic hingga Corporate level.</div><div class="ctag">6 PROGRAMS</div></div>
+      <div class="card" onclick="showPopup('assess_concept')"><div class="ci">📊</div><div class="ct">Assessment Center</div><div class="cx">Marlins, English, Interview, dan Technical Test.</div><div class="ctag">4 TESTS</div></div>
+      <div class="card" onclick="showPopup('cert_concept')"><div class="ci">📜</div><div class="ct">Certification</div><div class="cx">MEC Certificate untuk kandidat lulus semua assessment.</div><div class="ctag">MEC CERT</div></div>
+      <div class="card" onclick="showPopup('rec_concept')"><div class="ci">🚢</div><div class="ct">Recruitment Center</div><div class="cx">Direct connection certified candidates ke shipping companies.</div><div class="ctag">PLACEMENT</div></div>
+      <div class="card" onclick="showPopup('live_concept')"><div class="ci">📺</div><div class="ct">Live Streaming</div><div class="cx">Daily live di 5 platform untuk lead generation.</div><div class="ctag">DAILY LIVE</div></div>
+      <div class="card" onclick="showPopup('comm_concept')"><div class="ci">🌐</div><div class="ct">Community Hub</div><div class="cx">WA, Telegram, Facebook, LinkedIn — target 500 members.</div><div class="ctag">500 TARGET</div></div>
+      <div class="card" onclick="showPopup('mktg_concept')"><div class="ci">📣</div><div class="ct">Digital Marketing</div><div class="cx">Full funnel: content, ebook, mini course, AI content.</div><div class="ctag">FULL FUNNEL</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ████████████████ ACTION PLAN ████████████████ -->
+<div class="sec-alt">
+<section id="action">
+<div class="sec">
+  <div class="stag">— Action Plan 2026</div>
+  <div class="stit">6-Phase <span class="g">Roadmap</span></div>
+  <div class="ssub">Timeline eksekusi terstruktur dari Research & Validation hingga Certified Candidates siap kerja di industri maritim global.</div>
+  <div class="tl">
+    <div class="ph">
+      <div class="ph-dot"></div>
+      <div class="ph-hd" onclick="showPopup('phase1')"><div class="ph-num">PHASE 1</div><div class="ph-tit">Research & Validation</div><div class="ph-date">Jan–Mar 2026 ▶</div></div>
+      <div class="ph-body"><div class="ph-tasks"><h5>Tasks</h5><ul><li>Survey Taruna Pelayaran</li><li>Survey Pelaut Aktif</li><li>Survey Shipping Company</li><li>Market Validation Indonesia</li></ul></div><div class="ph-out"><h5>Output</h5><div class="ob">1,000 Maritime Database</div></div></div>
+    </div>
+    <div class="ph">
+      <div class="ph-dot"></div>
+      <div class="ph-hd" onclick="showPopup('phase2')"><div class="ph-num">PHASE 2</div><div class="ph-tit">Community Building</div><div class="ph-date">Apr–May 2026 ▶</div></div>
+      <div class="ph-body"><div class="ph-tasks"><h5>Tasks</h5><ul><li>WhatsApp Community Launch</li><li>Telegram Channel</li><li>Facebook Group</li><li>LinkedIn Group</li></ul></div><div class="ph-out"><h5>Output</h5><div class="ob">500 Active Members</div></div></div>
+    </div>
+    <div class="ph">
+      <div class="ph-dot"></div>
+      <div class="ph-hd" onclick="showPopup('phase3')"><div class="ph-num">PHASE 3</div><div class="ph-tit">Education & Content</div><div class="ph-date">May–Jun 2026 ▶</div></div>
+      <div class="ph-body"><div class="ph-tasks"><h5>Tasks</h5><ul><li>Ebook Maritime Series</li><li>Mini Course Launch</li><li>Daily Social Content</li><li>AI Maritime Content</li></ul></div><div class="ph-out"><h5>Output</h5><div class="ob">Trust Building</div></div></div>
+    </div>
+    <div class="ph">
+      <div class="ph-dot"></div>
+      <div class="ph-hd" onclick="showPopup('phase4')"><div class="ph-num">PHASE 4</div><div class="ph-tit">Webinar Series</div><div class="ph-date">Jun–Aug 2026 ▶</div></div>
+      <div class="ph-body"><div class="ph-tasks"><h5>Tasks</h5><ul><li>Monthly Maritime Webinar</li><li>Maritime English Webinar</li><li>Marlins Test Prep</li><li>Interview Preparation</li></ul></div><div class="ph-out"><h5>Output</h5><div class="ob">Qualified Leads</div></div></div>
+    </div>
+    <div class="ph">
+      <div class="ph-dot gd"></div>
+      <div class="ph-hd" onclick="showPopup('phase5')"><div class="ph-num" style="color:var(--gold)">PHASE 5</div><div class="ph-tit">Training Programs</div><div class="ph-date">Sep–Oct 2026 ▶</div></div>
+      <div class="ph-body"><div class="ph-tasks"><h5>Tasks</h5><ul><li>Basic Training (Taruna)</li><li>Intermediate (Seafarer)</li><li>Advanced (Officer/Engineer)</li><li>Corporate Training</li></ul></div><div class="ph-out"><h5>Output</h5><div class="ob">Competent Candidates</div></div></div>
+    </div>
+    <div class="ph">
+      <div class="ph-dot gd"></div>
+      <div class="ph-hd" onclick="showPopup('phase6')"><div class="ph-num" style="color:var(--gold)">PHASE 6</div><div class="ph-tit">Certification & Placement</div><div class="ph-date">Nov–Dec 2026 ▶</div></div>
+      <div class="ph-body"><div class="ph-tasks"><h5>Tasks</h5><ul><li>MEC Assessment</li><li>Marlins Test</li><li>English & Technical Test</li><li>Interview & Placement</li></ul></div><div class="ph-out"><h5>Output</h5><div class="ob">Certified Candidates</div></div></div>
+    </div>
+  </div>
+</div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ████████████████ DATABASE ████████████████ -->
+<section id="database">
+<div class="sec">
+  <div class="stag">— Database Center</div>
+  <div class="stit">Maritime <span class="g">Talent Database</span></div>
+  <div class="ssub">Sistem database terpusat untuk seluruh ekosistem maritim Indonesia — taruna, pelaut, officer, engineer, captain, dan shipping company.</div>
+  <div class="db-dash">
+    <div class="dbc" onclick="showPopup('db_total')"><div class="db-n">1,247</div><div class="db-l">Total Members</div></div>
+    <div class="dbc" onclick="showPopup('db_cadet')"><div class="db-n">483</div><div class="db-l">Cadets</div></div>
+    <div class="dbc" onclick="showPopup('db_seafarer')"><div class="db-n">621</div><div class="db-l">Seafarers</div></div>
+    <div class="dbc" onclick="showPopup('db_company')"><div class="db-n">143</div><div class="db-l">Companies</div></div>
+    <div class="dbc" onclick="showPopup('db_hot')"><div class="db-n" style="color:var(--gold)">87</div><div class="db-l">Hot Leads</div></div>
+    <div class="dbc" onclick="showPopup('db_active')"><div class="db-n" style="color:#00FF96">312</div><div class="db-l">Active Leads</div></div>
+  </div>
+  <div style="overflow-x:auto;margin-bottom:22px;border-radius:10px;border:1px solid var(--glassborder)">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Full Name</th><th>Category</th><th>Institution</th><th>City</th><th>Marlins</th><th>English</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>001</td><td>Budi Santoso, ANT-II</td><td>Officer</td><td>PT Salam Pacific Lines</td><td>Surabaya</td><td><span class="bdg bg">78</span></td><td><span class="bdg bc">85%</span></td><td><span class="bdg bg">CERTIFIED</span></td></tr>
+        <tr><td>002</td><td>Ahmad Rizky, ATT-III</td><td>Engineer</td><td>POLTEKPEL Surabaya</td><td>Surabaya</td><td><span class="bdg bc">65</span></td><td><span class="bdg bc">72%</span></td><td><span class="bdg bo">IN TRAINING</span></td></tr>
+        <tr><td>003</td><td>Dewi Rahmawati</td><td>Taruna</td><td>STIP Jakarta</td><td>Jakarta</td><td><span class="bdg br">42</span></td><td><span class="bdg bc">58%</span></td><td><span class="bdg bc">REGISTERED</span></td></tr>
+        <tr><td>004</td><td>Capt. Hendra Wijaya</td><td>Captain</td><td>PT PELNI</td><td>Jakarta</td><td><span class="bdg bg">92</span></td><td><span class="bdg bg">94%</span></td><td><span class="bdg bg">INSTRUCTOR</span></td></tr>
+        <tr><td>005</td><td>Rini Kusumawati</td><td>Taruna</td><td>Univ. Hang Tuah</td><td>Surabaya</td><td><span class="bdg br">38</span></td><td><span class="bdg bc">61%</span></td><td><span class="bdg bo">HOT LEAD</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <button class="btn btn-p" onclick="showPopup('db_add')">➕ Add Member</button>
+    <button class="btn btn-o" onclick="showPopup('db_search')">🔍 Search Database</button>
+    <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn btn-o">📊 Google Sheets</a>
+    <button class="btn btn-g" onclick="showPopup('db_export')">⬇ Export Data</button>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ████████████████ TRAINING ████████████████ -->
+<div class="sec-alt">
+<section id="training">
+<div class="sec">
+  <div class="stag">— Training Center</div>
+  <div class="stit">MEC <span class="g">Training Programs</span></div>
+  <div class="ssub">Program pelatihan berjenjang dari Basic hingga Advanced, dirancang khusus untuk kebutuhan industri maritim Indonesia dan standar IMO internasional.</div>
+  <div class="tr-grid">
+    <div class="tc" onclick="showPopup('train_basic')">
+      <div class="tc-hd"><div class="tc-lv bas">● BASIC</div><div class="tc-nm">Maritime Foundation</div><div class="tc-pr">Rp 500K</div></div>
+      <div class="tc-bd"><div class="tc-it">Maritime English Basics</div><div class="tc-it">Marlins Test Introduction</div><div class="tc-it">Interview Preparation</div><div class="tc-it">Resume & CV Writing</div><div class="tc-it">STCW Overview</div></div>
+      <div class="tc-ft"><button class="tc-btn bas" onclick="event.stopPropagation();showPopup('train_basic')">Daftar Sekarang</button></div>
+    </div>
+    <div class="tc" onclick="showPopup('train_inter')">
+      <div class="tc-hd"><div class="tc-lv int">● INTERMEDIATE</div><div class="tc-nm">Career Upgrade</div><div class="tc-pr">Rp 1.5M</div></div>
+      <div class="tc-bd"><div class="tc-it">Advanced Maritime English</div><div class="tc-it">Marlins Score 60+ Guarantee</div><div class="tc-it">Technical Interview Mastery</div><div class="tc-it">Competency Assessment</div><div class="tc-it">Job Placement Support</div></div>
+      <div class="tc-ft"><button class="tc-btn int" onclick="event.stopPropagation();showPopup('train_inter')">Daftar Sekarang</button></div>
+    </div>
+    <div class="tc" onclick="showPopup('train_adv')">
+      <div class="tc-hd"><div class="tc-lv adv">● ADVANCED</div><div class="tc-nm">Maritime AI & Leadership</div><div class="tc-pr">Rp 3.5M</div></div>
+      <div class="tc-bd"><div class="tc-it">AI in Maritime Industry 2030</div><div class="tc-it">Leadership & Management</div><div class="tc-it">Digital Transformation</div><div class="tc-it">MASS & Autonomous Shipping</div><div class="tc-it">MEC Full Certification</div></div>
+      <div class="tc-ft"><button class="tc-btn adv" onclick="event.stopPropagation();showPopup('train_adv')">Daftar Sekarang</button></div>
+    </div>
+    <div class="tc" onclick="showPopup('train_corp')">
+      <div class="tc-hd"><div class="tc-lv" style="color:#FF96C8">● CORPORATE</div><div class="tc-nm">Corporate Training</div><div class="tc-pr">Rp 25M+</div></div>
+      <div class="tc-bd"><div class="tc-it">Customized Curriculum</div><div class="tc-it">Onsite / Online Options</div><div class="tc-it">Bulk Marlins Assessment</div><div class="tc-it">Company-specific Standards</div><div class="tc-it">Direct Placement Service</div></div>
+      <div class="tc-ft"><button class="tc-btn" style="background:rgba(255,150,200,.12);color:#FF96C8" onclick="event.stopPropagation();showPopup('train_corp')">Request Proposal</button></div>
+    </div>
+  </div>
+</div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ████████████████ ASSESSMENT ████████████████ -->
+<section id="assessment">
+<div class="sec">
+  <div class="stag">— Assessment Center</div>
+  <div class="stit">Maritime <span class="g">Assessment System</span></div>
+  <div class="ssub">Sistem penilaian komprehensif meliputi Marlins Test, English Proficiency, Technical Interview, dan MEC Assessment untuk memastikan kompetensi kandidat.</div>
+  <div class="g4">
+    <div class="card" onclick="showPopup('ass_marlins')"><div class="ci">🎯</div><div class="ct">Marlins Test Prep</div><div class="cx">Persiapan intensif dengan target skor minimal 60. Bank soal 500+ berbasis AI.</div><div class="ctag">TARGET 60+</div></div>
+    <div class="card" onclick="showPopup('ass_english')"><div class="ci">🗣️</div><div class="ct">English Proficiency</div><div class="cx">Maritime English sesuai standar IMO SMCP — speaking, listening, reading, writing.</div><div class="ctag">IMO SMCP</div></div>
+    <div class="card" onclick="showPopup('ass_interview')"><div class="ci">💼</div><div class="ct">Interview Assessment</div><div class="cx">Mock interview dengan crew manager dari shipping company partner MEC.</div><div class="ctag">REAL INTERVIEW</div></div>
+    <div class="card" onclick="showPopup('ass_technical')"><div class="ci">⚙️</div><div class="ct">Technical Test</div><div class="cx">Uji kompetensi teknis Deck, Engine, dan Safety berbasis STCW & SNI.</div><div class="ctag">STCW ALIGNED</div></div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ████████████████ CERTIFICATION ████████████████ -->
+<div class="sec-alt">
+<section id="certification">
+<div class="sec">
+  <div class="stag">— Certification Center</div>
+  <div class="stit">MEC <span class="g">Certification Program</span></div>
+  <div class="ssub">Sertifikasi resmi MEC sebagai bukti kompetensi kandidat yang telah lulus semua tahap assessment dan training program.</div>
+  <div class="g3">
+    <div class="card" onclick="showPopup('cert_mec')"><div class="ci">🏆</div><div class="ct">MEC Competency Certificate</div><div class="cx">Sertifikat utama MEC untuk kandidat yang lulus semua assessment. Diakui shipping company partner.</div><div class="ctag">FLAGSHIP CERT</div></div>
+    <div class="card" onclick="showPopup('cert_eng')"><div class="ci">🗣️</div><div class="ct">Maritime English Certificate</div><div class="cx">Bukti kemampuan Maritime English sesuai standar IMO. Valid untuk aplikasi kerja internasional.</div><div class="ctag">IMO STANDARD</div></div>
+    <div class="card" onclick="showPopup('cert_digital')"><div class="ci">🖥️</div><div class="ct">Digital Certificate</div><div class="cx">E-certificate dengan QR code verifikasi online. Mudah dibagikan di LinkedIn dan platform rekrutmen.</div><div class="ctag">DIGITAL FIRST</div></div>
+  </div>
+</div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ████████████████ COMMUNITY ████████████████ -->
+<section id="community">
+<div class="sec">
+  <div class="stag">— Community Hub</div>
+  <div class="stit">MEC <span class="g">Community Network</span></div>
+  <div class="ssub">Bergabung dengan komunitas maritim terbesar Indonesia. Akses informasi, networking, job posting, dan live session eksklusif.</div>
+  <div class="cm-grid">
+    <div class="cm"><div class="cm-ic">💬</div><div class="cm-nm">WhatsApp Group</div><div class="cm-cn">247+</div><div class="cm-tx">Diskusi harian, info lowongan kerja, tips karir maritime, dan notifikasi live stream.</div><a href="https://wa.me/6281234567890" target="_blank" class="cm-j">Join WA Group</a></div>
+    <div class="cm"><div class="cm-ic">✈️</div><div class="cm-nm">Telegram Channel</div><div class="cm-cn">183+</div><div class="cm-tx">Update terbaru MEC, jadwal webinar, materi belajar gratis, dan broadcast lowongan kapal.</div><a href="https://t.me/MEC2026Maritime" target="_blank" class="cm-j">Join Telegram</a></div>
+    <div class="cm"><div class="cm-ic">👥</div><div class="cm-nm">Facebook Group</div><div class="cm-cn">412+</div><div class="cm-tx">Komunitas aktif pelaut Indonesia, sharing pengalaman, diskusi teknis, dan info sertifikasi.</div><a href="https://facebook.com/groups/mec2026" target="_blank" class="cm-j">Join Facebook</a></div>
+    <div class="cm"><div class="cm-ic">💼</div><div class="cm-nm">LinkedIn Group</div><div class="cm-cn">156+</div><div class="cm-tx">Professional networking maritime Indonesia, koneksi langsung dengan HRD shipping company.</div><a href="https://linkedin.com/groups/mec2026" target="_blank" class="cm-j">Join LinkedIn</a></div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ████████████████ LIVE STREAMING ████████████████ -->
+<div class="sec-alt">
+<section id="live">
+<div class="sec">
+  <div class="stag">— Live Streaming Center</div>
+  <div class="stit"><span class="ldot"></span>MEC <span class="g">Live Studio</span></div>
+  <div class="ssub">Daily maritime live streaming di 5 platform untuk membangun trust, edukasi publik, dan generate leads secara konsisten.</div>
+  <div class="plat-grid">
+    <a href="https://www.tiktok.com/@rafaelsukirno" target="_blank" class="plat tk"><div class="plat-ic">🎵</div><div class="plat-nm">TikTok</div><div class="plat-ac">@rafaelsukirno</div></a>
+    <a href="https://www.youtube.com/@RafaelSukirno" target="_blank" class="plat yt"><div class="plat-ic">▶️</div><div class="plat-nm">YouTube</div><div class="plat-ac">@RafaelSukirno</div></a>
+    <a href="https://www.instagram.com/mec2026" target="_blank" class="plat ig"><div class="plat-ic">📷</div><div class="plat-nm">Instagram</div><div class="plat-ac">@mec2026</div></a>
+    <a href="https://www.facebook.com/mec2026maritime" target="_blank" class="plat fb"><div class="plat-ic">👍</div><div class="plat-nm">Facebook</div><div class="plat-ac">MEC Maritime</div></a>
+    <a href="https://www.linkedin.com/company/mec2026" target="_blank" class="plat li"><div class="plat-ic">💼</div><div class="plat-nm">LinkedIn</div><div class="plat-ac">MEC 2026</div></a>
+  </div>
+  <div class="stag" style="margin-bottom:14px">— Weekly Live Schedule</div>
+  <div class="sched">
+    <div class="sc"><div class="sc-day">SENIN — 20:00 WIB</div><div class="sc-top">Maritime English Weekly Challenge</div><div class="sc-host">Host: Rafael Sukirno, CE | TikTok + YouTube</div></div>
+    <div class="sc"><div class="sc-day">RABU — 19:30 WIB</div><div class="sc-top">Marlins Test Tips & Tricks</div><div class="sc-host">Host: MEC Instructor | Facebook + Instagram</div></div>
+    <div class="sc"><div class="sc-day">JUMAT — 20:00 WIB</div><div class="sc-top">Tanya Jawab: Karir Pelaut 2026</div><div class="sc-host">Host: Rafael Sukirno, CE | All Platforms</div></div>
+    <div class="sc"><div class="sc-day">SABTU — 10:00 WIB</div><div class="sc-top">AI & Maritime Industry 2030 Series</div><div class="sc-host">Guest Expert + Host | YouTube + LinkedIn</div></div>
+    <div class="sc"><div class="sc-day">MINGGU — 19:00 WIB</div><div class="sc-top">Maritime Stories & Inspiration</div><div class="sc-host">Guest Seafarer | TikTok + Instagram</div></div>
+    <div class="sc" style="border-color:rgba(255,215,0,.3)"><div class="sc-day" style="color:var(--gold)">BULANAN — Last Saturday</div><div class="sc-top">MEC Grand Webinar</div><div class="sc-host">Special Guest + Rafael Sukirno, CE | All Platforms</div></div>
+  </div>
+  <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap">
+    <a href="https://www.tiktok.com/@rafaelsukirno" target="_blank" class="btn btn-p">🎵 Tonton TikTok</a>
+    <a href="https://www.youtube.com/@RafaelSukirno" target="_blank" class="btn" style="background:linear-gradient(135deg,#FF0000,#CC0000);color:#fff">▶️ YouTube Channel</a>
+    <button class="btn btn-o" onclick="showPopup('live_sop')">📋 Live SOP</button>
+  </div>
+</div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ████████████████ RECRUITMENT ████████████████ -->
+<section id="recruitment">
+<div class="sec">
+  <div class="stag">— Recruitment Center</div>
+  <div class="stit">Maritime <span class="g">Job Placement</span></div>
+  <div class="ssub">MEC menghubungkan kandidat tersertifikasi langsung dengan shipping company partner untuk proses rekrutmen yang efisien dan transparan.</div>
+  <div class="g3">
+    <div class="card" onclick="showPopup('rec_candidate')"><div class="ci">👨‍✈️</div><div class="ct">For Candidates</div><div class="cx">Register → Assess → Train → Certify → Placed. Kami bantu dari nol hingga dapat kapal.</div><div class="ctag">FREE REGISTER</div></div>
+    <div class="card" onclick="showPopup('rec_company')"><div class="ci">🏢</div><div class="ct">For Companies</div><div class="cx">Post kebutuhan crew, akses database certified candidates, dan seleksi melalui platform MEC.</div><div class="ctag">PARTNER CO.</div></div>
+    <div class="card" onclick="showPopup('rec_process')"><div class="ci">🔄</div><div class="ct">Placement Process</div><div class="cx">Register → Assess → Train → Certify → Match → Interview → Placed. 7-step systematic process.</div><div class="ctag">7-STEP</div></div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ████████████████ PARTNERSHIP ████████████████ -->
+<div class="sec-alt">
+<section id="partnership">
+<div class="sec">
+  <div class="stag">— Partnership</div>
+  <div class="stit">Become MEC <span class="g">Partner</span></div>
+  <div class="ssub">Bergabung sebagai partner strategis MEC 2026 — shipping company, akademi maritim, instruktur, atau investor.</div>
+  <div class="g4">
+    <div class="card" onclick="showPopup('part_shipping')"><div class="ci">🚢</div><div class="ct">Shipping Company</div><div class="cx">Akses certified candidates, posting vacancy, dan customized training untuk crew kapal.</div><div class="ctag">STRATEGIC</div></div>
+    <div class="card" onclick="showPopup('part_academy')"><div class="ci">🏫</div><div class="ct">Maritime Academy</div><div class="cx">Kerjasama MoU, joint program, dan penempatan taruna ke kapal melalui jaringan MEC.</div><div class="ctag">ACADEMIC</div></div>
+    <div class="card" onclick="showPopup('part_instructor')"><div class="ci">👨‍🏫</div><div class="ct">Instructor / Expert</div><div class="cx">Bergabung sebagai MEC instructor atau live streaming guest dengan revenue sharing.</div><div class="ctag">INSTRUCTOR</div></div>
+    <div class="card" onclick="showPopup('part_investor')"><div class="ci">💰</div><div class="ct">Investor / Sponsor</div><div class="cx">Investasi di ekosistem maritim digital terbesar Indonesia dengan proyeksi revenue terukur.</div><div class="ctag">INVESTMENT</div></div>
+  </div>
+</div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ████████████████ DASHBOARD ████████████████ -->
+<section id="dashboard">
+<div class="sec">
+  <div class="stag">— Executive Dashboard</div>
+  <div class="stit">MEC <span class="g">Performance Dashboard</span></div>
+  <div class="ssub">Real-time overview kinerja MEC 2026 — database growth, community, training, revenue, dan live streaming analytics.</div>
+  <div style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--silver);margin-bottom:22px">Created by: Rafael Sukirno, CE &nbsp;|&nbsp; Updated: June 2026</div>
+  <div class="dash-g">
+    <div class="kpi"><div class="kpi-l">Total Database</div><div class="kpi-v">1,247</div><div class="kpi-s"><span class="up">↑ 23%</span> vs last month</div></div>
+    <div class="kpi"><div class="kpi-l">Community Size</div><div class="kpi-v">998</div><div class="kpi-s"><span class="up">↑ 15%</span> vs last month</div></div>
+    <div class="kpi"><div class="kpi-l">Training Participants</div><div class="kpi-v">183</div><div class="kpi-s"><span class="up">↑ 31%</span> this quarter</div></div>
+    <div class="kpi"><div class="kpi-l">Certified Graduates</div><div class="kpi-v">64</div><div class="kpi-s"><span class="up">↑ 8</span> this month</div></div>
+    <div class="kpi"><div class="kpi-l">Monthly Revenue</div><div class="kpi-v" style="font-size:1.2rem">Rp 87M</div><div class="kpi-s"><span class="up">↑ 42%</span> vs Q1</div></div>
+    <div class="kpi"><div class="kpi-l">Live Viewers/mo</div><div class="kpi-v">12.4K</div><div class="kpi-s"><span class="up">↑ 67%</span> vs last month</div></div>
+  </div>
+  <div class="ch-row">
+    <div class="ch">
+      <div class="ch-t">DATABASE GROWTH BY CATEGORY</div>
+      <div class="br-chart">
+        <div class="br-row"><div class="br-lb">Taruna</div><div class="br-tr"><div class="br-fi c1" style="width:39%"></div></div><div class="br-vl">483</div></div>
+        <div class="br-row"><div class="br-lb">Seafarers</div><div class="br-tr"><div class="br-fi c2" style="width:50%"></div></div><div class="br-vl">621</div></div>
+        <div class="br-row"><div class="br-lb">Officers</div><div class="br-tr"><div class="br-fi c3" style="width:19%"></div></div><div class="br-vl">234</div></div>
+        <div class="br-row"><div class="br-lb">Companies</div><div class="br-tr"><div class="br-fi c1" style="width:11%"></div></div><div class="br-vl">143</div></div>
+        <div class="br-row"><div class="br-lb">Instructors</div><div class="br-tr"><div class="br-fi c2" style="width:6%"></div></div><div class="br-vl">74</div></div>
+      </div>
+    </div>
+    <div class="ch">
+      <div class="ch-t">REVENUE SPLIT</div>
+      <div class="do-wrap">
+        <div class="do-it"><div class="do-dot" style="background:var(--cyan)"></div><div class="do-tx">Training Programs</div><div class="do-pc">44%</div></div>
+        <div class="do-it"><div class="do-dot" style="background:var(--gold)"></div><div class="do-tx">Corporate Training</div><div class="do-pc">28%</div></div>
+        <div class="do-it"><div class="do-dot" style="background:#00FF96"></div><div class="do-tx">Webinar & Events</div><div class="do-pc">17%</div></div>
+        <div class="do-it"><div class="do-dot" style="background:#FF96C8"></div><div class="do-tx">Certification Fees</div><div class="do-pc">11%</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ████████████████ TEAM ████████████████ -->
+<div class="sec-alt">
+<div class="sec">
+  <div class="stag">— Digital Marketing Team</div>
+  <div class="stit">MEC <span class="g">Core Team</span></div>
+  <div class="ssub">Tim profesional yang menjalankan ekosistem MEC 2026 — konten, database, live streaming, hingga partnership management.</div>
+  <div class="tm-grid">
+    <div class="tm" onclick="showPopup('team_rafael')"><div class="tm-av">⚓</div><div class="tm-nm">Rafael Sukirno, CE</div><div class="tm-rl">Founder & Academic Director</div><ul class="tm-tk"><li>Strategic Vision</li><li>Content Authority</li><li>Live Host</li><li>Curriculum Design</li></ul></div>
+    <div class="tm" onclick="showPopup('team_gid')"><div class="tm-av">🧭</div><div class="tm-nm">Gus Wid</div><div class="tm-rl">Strategic Director</div><ul class="tm-tk"><li>Org Strategy</li><li>Yayasan Management</li><li>Partnership</li><li>Finance Oversight</li></ul></div>
+    <div class="tm" onclick="showPopup('team_lutfi')"><div class="tm-av">⚙️</div><div class="tm-nm">Mas Lutfi</div><div class="tm-rl">Operations Manager</div><ul class="tm-tk"><li>Daily Operations</li><li>Team Coordination</li><li>Admin Database</li><li>SOP Management</li></ul></div>
+    <div class="tm" onclick="showPopup('team_content')"><div class="tm-av">📱</div><div class="tm-nm">Content Creator</div><div class="tm-rl">TikTok / Social Media</div><ul class="tm-tk"><li>Daily Content</li><li>Video Editing</li><li>Social Media Mgmt</li><li>Engagement</li></ul></div>
+    <div class="tm" onclick="showPopup('team_comm')"><div class="tm-av">🌐</div><div class="tm-nm">Community Manager</div><div class="tm-rl">All Platforms</div><ul class="tm-tk"><li>WA/TG Admin</li><li>Member Engagement</li><li>Lead Qualification</li><li>Survey Mgmt</li></ul></div>
+    <div class="tm" onclick="showPopup('team_db')"><div class="tm-av">🗄️</div><div class="tm-nm">Database Admin</div><div class="tm-rl">Google Sheets / CRM</div><ul class="tm-tk"><li>Data Entry</li><li>Forms Integration</li><li>Reporting</li><li>Lead Tracking</li></ul></div>
+  </div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ████████████████ CONTACT ████████████████ -->
+<section id="contact">
+<div class="sec">
+  <div class="stag">— Contact & Registration</div>
+  <div class="stit">Hubungi <span class="g">MEC 2026</span></div>
+  <div class="ssub">Daftar program, tanya informasi, atau diskusikan partnership. Tim kami siap membantu melalui berbagai channel komunikasi.</div>
+  <div class="ct-grid">
+    <div class="ct-info">
+      <div class="ci-row"><div class="ci-ic">📱</div><div><div class="ci-lb">WhatsApp</div><div class="ci-vl"><a href="https://wa.me/6281234567890" target="_blank">+62 812-3456-7890</a></div></div></div>
+      <div class="ci-row"><div class="ci-ic">🎵</div><div><div class="ci-lb">TikTok</div><div class="ci-vl"><a href="https://www.tiktok.com/@rafaelsukirno" target="_blank">@rafaelsukirno</a></div></div></div>
+      <div class="ci-row"><div class="ci-ic">▶️</div><div><div class="ci-lb">YouTube</div><div class="ci-vl"><a href="https://www.youtube.com/@RafaelSukirno" target="_blank">@RafaelSukirno</a></div></div></div>
+      <div class="ci-row"><div class="ci-ic">📷</div><div><div class="ci-lb">Instagram</div><div class="ci-vl"><a href="https://instagram.com/mec2026" target="_blank">@mec2026</a></div></div></div>
+      <div class="ci-row"><div class="ci-ic">📧</div><div><div class="ci-lb">Email</div><div class="ci-vl"><a href="mailto:info@mec2026.id">info@mec2026.id</a></div></div></div>
+      <div class="ci-row"><div class="ci-ic">📍</div><div><div class="ci-lb">Location</div><div class="ci-vl">Kampung Inggris Pare, Kediri, Jawa Timur</div></div></div>
+      <a href="https://wa.me/6281234567890?text=Halo%20MEC%202026,%20saya%20ingin%20info%20program%20training" target="_blank" class="btn btn-p" style="margin-top:8px;text-align:center;width:100%">💬 Chat WhatsApp Sekarang</a>
+    </div>
+    <div class="ct-form">
+      <div class="fg"><label>Nama Lengkap</label><input type="text" placeholder="Masukkan nama lengkap"></div>
+      <div class="fg"><label>WhatsApp</label><input type="text" placeholder="+62 8xx-xxxx-xxxx"></div>
+      <div class="fg"><label>Email</label><input type="email" placeholder="email@anda.com"></div>
+      <div class="fg"><label>Kategori</label>
+        <select><option>Taruna Pelayaran</option><option>Pelaut / Seafarer</option><option>Officer / Engineer</option><option>Shipping Company</option><option>Akademi / Institusi</option><option>Lainnya</option></select>
+      </div>
+      <div class="fg"><label>Pesan</label><textarea placeholder="Informasi program, partnership, atau pertanyaan..."></textarea></div>
+      <button class="btn btn-p" onclick="showPopup('form_sent')" style="width:100%;text-align:center">🚀 Kirim & Daftar</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ████████████████ FOOTER ████████████████ -->
+<footer>
+<div class="ft-inner">
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div class="logo">MEC <span>2026</span></div>
+      <p>Maritime Ecosystem Camp — Building Maritime Competency Ecosystem for Indonesia. Founded by Rafael Sukirno, CE. Under Yayasan LMMES, Kampung Inggris Pare, Kediri.</p>
+    </div>
+    <div class="ft-col"><h4>Programs</h4><ul>
+      <li><a href="#training" onclick="hamClose()">Basic Training</a></li>
+      <li><a href="#training" onclick="hamClose()">Career Upgrade</a></li>
+      <li><a href="#training" onclick="hamClose()">AI Maritime</a></li>
+      <li><a href="#training" onclick="hamClose()">Corporate Training</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Community</h4><ul>
+      <li><a href="https://wa.me/6281234567890" target="_blank">WhatsApp Group</a></li>
+      <li><a href="https://t.me/MEC2026Maritime" target="_blank">Telegram</a></li>
+      <li><a href="https://facebook.com/groups/mec2026" target="_blank">Facebook Group</a></li>
+      <li><a href="https://linkedin.com/groups/mec2026" target="_blank">LinkedIn Group</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Live Channels</h4><ul>
+      <li><a href="https://www.tiktok.com/@rafaelsukirno" target="_blank">🎵 TikTok</a></li>
+      <li><a href="https://www.youtube.com/@RafaelSukirno" target="_blank">▶️ YouTube</a></li>
+      <li><a href="https://instagram.com/mec2026" target="_blank">📷 Instagram</a></li>
+      <li><a href="https://facebook.com/mec2026maritime" target="_blank">👍 Facebook</a></li>
+    </ul></div>
+  </div>
+  <div class="ft-bot">
+    <p>© 2026 MEC — Maritime Ecosystem Camp | Created by <span class="hl">Rafael Sukirno, CE</span> | Yayasan LMMES</p>
+    <div class="socs">
+      <a href="https://www.tiktok.com/@rafaelsukirno" target="_blank" class="soc">🎵</a>
+      <a href="https://www.youtube.com/@RafaelSukirno" target="_blank" class="soc">▶️</a>
+      <a href="https://instagram.com/mec2026" target="_blank" class="soc">📷</a>
+      <a href="https://wa.me/6281234567890" target="_blank" class="soc">💬</a>
+      <a href="https://linkedin.com/company/mec2026" target="_blank" class="soc">💼</a>
+    </div>
+  </div>
+</div>
+</footer>
+
+<!-- ████████████████ POPUP MODAL ████████████████ -->
+<div id="pov" onclick="overlayClose(event)">
+  <div id="pbox">
+    <div id="ph">
+      <div><div id="ptit">MEC 2026</div><div id="ptag">Maritime Ecosystem Camp</div></div>
+      <button id="pcl" onclick="closePopup()">✕</button>
+    </div>
+    <div id="pbdy"></div>
+  </div>
+</div>
+
+<script>
+// ── PARTICLES ──
+(function(){
+  var c=document.getElementById('ptc');
+  for(var i=0;i<22;i++){
+    var p=document.createElement('div');p.className='p';
+    var s=Math.random()*2.5+1;
+    p.style.cssText='width:'+s+'px;height:'+s+'px;left:'+Math.random()*100+'%;background:'+(Math.random()>.5?'rgba(0,200,255,':'rgba(255,215,0,')+( Math.random()*.25+.08)+');animation-duration:'+(Math.random()*18+14)+'s;animation-delay:'+(Math.random()*10)+'s';
+    c.appendChild(p);
+  }
+})();
+
+// ── COUNTER ──
+function cnt(el,target,sfx,dur){
+  var start=0,step=target/60;
+  var t=setInterval(function(){
+    start=Math.min(start+step,target);
+    el.textContent=Math.floor(start).toLocaleString()+(sfx||'');
+    if(start>=target)clearInterval(t);
+  },dur/60);
+}
+window.addEventListener('load',function(){
+  setTimeout(function(){
+    cnt(document.getElementById('s1'),1000,'+',2000);
+    cnt(document.getElementById('s2'),500,'+',2000);
+    cnt(document.getElementById('s3'),6,'',1500);
+    cnt(document.getElementById('s4'),250,'+',2000);
+  },500);
+});
+
+// ── SCROLL TOP ──
+window.addEventListener('scroll',function(){
+  document.getElementById('st').classList.toggle('show',window.scrollY>400);
+});
+
+// ── HAMBURGER ──
+function hamToggle(){document.getElementById('navLinks').classList.toggle('open')}
+function hamClose(){document.getElementById('navLinks').classList.remove('open')}
+
+// ── POPUP DATA ──
+var PD={
+  founder:{t:'Rafael Sukirno, CE',tg:'Founder & Academic Director — MEC 2026',b:'<div class="ps"><h4>Profil Lengkap</h4><p>Marine Engineering instructor dengan 30+ tahun pengalaman seafaring aktif (1991–2021). Mengajar di Politeknik Pelayaran Surabaya (POLTEKPEL) dan Universitas Hang Tuah Surabaya.</p></div><div class="ps"><h4>Peran di MEC</h4><ul><li>Academic Director & Co-Founder MEC</li><li>Head of Curriculum Development</li><li>Chief Live Streaming Host</li><li>Maritime Content Creator & Authority</li></ul></div><div class="ps"><h4>Karya & Output</h4><ul><li>Ebook "100 Hari di Atas Kapal" Series</li><li>YouTube Maritime Engineering Content</li><li>Multiple Interactive Marine Education Websites</li><li>SMK Samudera Nusantara Co-Founder</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 WhatsApp</a><a href="https://www.youtube.com/@RafaelSukirno" target="_blank" class="pb pb-yt">▶️ YouTube</a><a href="https://www.tiktok.com/@rafaelsukirno" target="_blank" class="pb pb-tk">🎵 TikTok</a></div>'},
+  community:{t:'Join MEC Community',tg:'5 Platform — Free to Join',b:'<div class="ps"><h4>Purpose</h4><p>Bergabung dengan komunitas maritim terbesar di Indonesia. Gratis untuk semua — taruna, pelaut, instructor, dan profesional maritim.</p></div><div class="ps"><h4>Platform Komunitas</h4><ul><li>💬 WhatsApp Group — Diskusi harian & info lowongan</li><li>✈️ Telegram — Update terbaru & materi gratis</li><li>👥 Facebook Group — Sharing pengalaman pelaut</li><li>💼 LinkedIn Group — Professional networking</li></ul></div><div class="ps"><h4>Member Benefits</h4><ul><li>Akses live streaming eksklusif MEC</li><li>Materi belajar & ebook gratis</li><li>Info lowongan kapal terkini</li><li>Networking langsung dengan shipping company</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Join WhatsApp</a><a href="https://t.me/MEC2026Maritime" target="_blank" class="pb pb-p">✈️ Join Telegram</a></div>'},
+  partner:{t:'Become MEC Partner',tg:'Strategic Partnership 2026',b:'<div class="ps"><h4>Partnership Options</h4><ul><li>🚢 Shipping Company — Akses certified candidates</li><li>🏫 Maritime Academy — Joint program & MoU</li><li>👨‍🏫 Instructor / Expert — Revenue sharing</li><li>💰 Investor / Sponsor — Equity & branding</li></ul></div><div class="ps"><h4>Partner Benefits</h4><ul><li>Exclusive access ke database MEC 1,000+</li><li>Co-branding di semua platform digital MEC</li><li>Priority recruitment dari MEC certified candidates</li><li>Joint live streaming & webinar eksklusif</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Saya%20ingin%20menjadi%20partner%20MEC%202026" target="_blank" class="pb pb-wa">💬 Diskusi via WA</a><a href="#contact" onclick="closePopup()" class="pb pb-o">📧 Kirim Proposal</a></div>'},
+  db_concept:{t:'Database Center',tg:'1,000+ Maritime Professionals',b:'<div class="ps"><h4>Konsep</h4><p>Sistem database terpusat untuk seluruh ekosistem maritim Indonesia. Setiap data terintegrasi dengan assessment score, training status, dan placement history.</p></div><div class="ps"><h4>Kategori Database</h4><ul><li>Taruna Pelayaran</li><li>Pelaut / Seafarer</li><li>Officer & Engineer</li><li>Captain</li><li>Shipping Company</li><li>Instructor & Academy</li></ul></div><div class="ps"><h4>Tools</h4><ul><li>Google Forms (input)</li><li>Google Sheets (storage)</li><li>WhatsApp (notification)</li><li>Dashboard MEC (visualization)</li></ul></div><div class="pacts"><a href="https://docs.google.com/spreadsheets" target="_blank" class="pb pb-p">📊 Google Sheets</a><a href="https://forms.google.com" target="_blank" class="pb pb-o">📋 Google Forms</a></div>'},
+  training_concept:{t:'Training Center',tg:'4 Program Levels',b:'<div class="ps"><h4>Program Levels</h4><ul><li>Basic: Maritime Foundation (Rp 500K)</li><li>Intermediate: Career Upgrade (Rp 1.5M)</li><li>Advanced: AI & Leadership (Rp 3.5M)</li><li>Corporate: Customized (Rp 25M+)</li></ul></div><div class="ps"><h4>Format</h4><ul><li>Online via Zoom + LMS</li><li>Offline bootcamp di Pare, Kediri</li><li>Blended learning option</li></ul></div><div class="pacts"><a href="#training" onclick="closePopup()" class="pb pb-p">View All Programs</a></div>'},
+  assess_concept:{t:'Assessment Center',tg:'4 Types of Assessment',b:'<div class="ps"><h4>Assessment Types</h4><ul><li>Marlins Test Prep (Target Score 60+)</li><li>Maritime English (IMO SMCP Standard)</li><li>Interview Assessment (Real Company)</li><li>Technical Test (STCW Aligned)</li></ul></div><div class="pacts"><a href="#assessment" onclick="closePopup()" class="pb pb-p">View Assessment</a></div>'},
+  cert_concept:{t:'Certification Center',tg:'MEC Official Certificates',b:'<div class="ps"><h4>Certificates</h4><ul><li>MEC Competency Certificate (Flagship)</li><li>Maritime English Certificate (IMO)</li><li>Digital Certificate with QR Verification</li></ul></div><div class="ps"><h4>Requirements</h4><ul><li>Lulus Marlins Test min. skor 60</li><li>Lulus Maritime English Assessment</li><li>Lulus Technical Competency Test</li><li>Lulus Mock Interview MEC</li></ul></div><div class="pacts"><a href="#certification" onclick="closePopup()" class="pb pb-p">View Certification</a></div>'},
+  rec_concept:{t:'Recruitment Center',tg:'7-Step Placement Process',b:'<div class="ps"><h4>Process</h4><ul><li>Step 1: Register (Free)</li><li>Step 2: Placement Assessment</li><li>Step 3: Training Program</li><li>Step 4: Certification</li><li>Step 5: Database Matching</li><li>Step 6: Company Interview</li><li>Step 7: Placed on Ship</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Register Now</a></div>'},
+  live_concept:{t:'Live Streaming Center',tg:'Daily Live on 5 Platforms',b:'<div class="ps"><h4>Platforms</h4><ul><li>🎵 TikTok Live — @rafaelsukirno</li><li>▶️ YouTube — @RafaelSukirno</li><li>📷 Instagram — @mec2026</li><li>👍 Facebook — MEC Maritime</li><li>💼 LinkedIn — MEC 2026</li></ul></div><div class="ps"><h4>Schedule</h4><ul><li>Senin 20:00 — Maritime English</li><li>Rabu 19:30 — Marlins Tips</li><li>Jumat 20:00 — Tanya Jawab Karir</li><li>Sabtu 10:00 — AI Maritime 2030</li></ul></div><div class="pacts"><a href="https://www.tiktok.com/@rafaelsukirno" target="_blank" class="pb pb-tk">🎵 TikTok Live</a><a href="https://www.youtube.com/@RafaelSukirno" target="_blank" class="pb pb-yt">▶️ YouTube</a></div>'},
+  comm_concept:{t:'Community Hub',tg:'500+ Active Members Target',b:'<div class="ps"><h4>Platforms</h4><ul><li>WhatsApp Group (247+ members)</li><li>Telegram Channel (183+ followers)</li><li>Facebook Group (412+ members)</li><li>LinkedIn Group (156+ members)</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">Join Community</a></div>'},
+  mktg_concept:{t:'Digital Marketing Center',tg:'Full Funnel Strategy',b:'<div class="ps"><h4>Strategy</h4><ul><li>Daily TikTok & Instagram content</li><li>YouTube Shorts maritime facts</li><li>Ebook lead magnets</li><li>Mini course funnel</li><li>AI-generated maritime content</li><li>WhatsApp broadcast campaigns</li></ul></div><div class="ps"><h4>Team</h4><ul><li>Marketing Director</li><li>Content Creator</li><li>Video Editor</li><li>TikTok Host</li><li>Community Manager</li><li>Graphic Designer</li></ul></div><div class="pacts"><a href="https://www.tiktok.com/@rafaelsukirno" target="_blank" class="pb pb-tk">🎵 TikTok</a><a href="https://www.youtube.com/@RafaelSukirno" target="_blank" class="pb pb-yt">▶️ YouTube</a></div>'},
+  phase1:{t:'Phase 1: Research & Validation',tg:'Jan–Mar 2026',b:'<div class="ps"><h4>Purpose</h4><p>Memvalidasi kebutuhan pasar maritim Indonesia melalui survei langsung ke taruna, pelaut, dan perusahaan pelayaran.</p></div><div class="ps"><h4>Tasks</h4><ul><li>Survey online via Google Forms ke 500+ taruna</li><li>Survey pelaut aktif di seluruh Indonesia</li><li>Interview HRD 20+ shipping company</li><li>Analisis gap kompetensi vs kebutuhan industri</li></ul></div><div class="ps"><h4>KPI Target</h4><div class="pk"><div class="pk-pill"><strong>500+</strong><span>Respondents</span></div><div class="pk-pill"><strong>1,000</strong><span>Database</span></div><div class="pk-pill"><strong>20+</strong><span>Companies</span></div></div></div><div class="ps"><h4>Tools</h4><ul><li>Google Forms & Sheets</li><li>WhatsApp Broadcast</li><li>TikTok / Instagram untuk reach</li></ul></div><div class="pacts"><a href="https://forms.google.com" target="_blank" class="pb pb-p">📋 Open Survey Form</a><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Info via WA</a></div>'},
+  phase2:{t:'Phase 2: Community Building',tg:'Apr–May 2026',b:'<div class="ps"><h4>Purpose</h4><p>Membangun komunitas aktif di berbagai platform sebagai fondasi ekosistem MEC dan database cold audience.</p></div><div class="ps"><h4>Tasks</h4><ul><li>Launch semua platform komunitas serentak</li><li>Content strategy untuk organic growth</li><li>Referral program untuk member aktif</li><li>Weekly engagement activities</li></ul></div><div class="ps"><h4>KPI</h4><div class="pk"><div class="pk-pill"><strong>500+</strong><span>Members</span></div><div class="pk-pill"><strong>4</strong><span>Platforms</span></div><div class="pk-pill"><strong>50%</strong><span>Active Rate</span></div></div></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Join Community</a></div>'},
+  phase3:{t:'Phase 3: Education & Content',tg:'May–Jun 2026',b:'<div class="ps"><h4>Purpose</h4><p>Membangun authority dan trust melalui konten edukatif berkualitas tinggi yang relevan untuk pelaut Indonesia.</p></div><div class="ps"><h4>Content Plan</h4><ul><li>Ebook: "Panduan Lengkap Marlins Test 2026"</li><li>Mini Course: "Maritime English 30 Hari"</li><li>Daily TikTok: Tips & fakta maritim</li><li>AI Maritime Content Series 2030</li></ul></div><div class="ps"><h4>KPI</h4><div class="pk"><div class="pk-pill"><strong>30+</strong><span>Daily Posts</span></div><div class="pk-pill"><strong>2</strong><span>Ebooks</span></div><div class="pk-pill"><strong>1</strong><span>Mini Course</span></div></div></div><div class="pacts"><a href="https://www.tiktok.com/@rafaelsukirno" target="_blank" class="pb pb-tk">🎵 TikTok</a><a href="https://www.youtube.com/@RafaelSukirno" target="_blank" class="pb pb-yt">▶️ YouTube</a></div>'},
+  phase4:{t:'Phase 4: Webinar Series',tg:'Jun–Aug 2026',b:'<div class="ps"><h4>Purpose</h4><p>Mengkonversi audience menjadi qualified leads melalui webinar berkualitas tinggi dengan pembicara berpengalaman.</p></div><div class="ps"><h4>Webinar Topics</h4><ul><li>AI & Maritime Industry 2030 (Monthly)</li><li>Maritime English Workshop (Bi-weekly)</li><li>Marlins Test Preparation (Weekly)</li><li>Interview Masterclass (Monthly)</li></ul></div><div class="ps"><h4>Format & Harga</h4><p>Pre-recorded guest + live host (OBS format). Tiket: <strong style="color:var(--gold)">Rp 49K–99K</strong> per sesi.</p></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Daftar%20Webinar%20MEC%202026" target="_blank" class="pb pb-wa">💬 Daftar Webinar</a></div>'},
+  phase5:{t:'Phase 5: Training Programs',tg:'Sep–Oct 2026',b:'<div class="ps"><h4>Programs</h4><ul><li>Basic: Maritime Foundation (Rp 500K)</li><li>Intermediate: Career Upgrade (Rp 1.5M)</li><li>Advanced: AI & Leadership (Rp 3.5M)</li><li>Corporate: Customized (Rp 25M+)</li></ul></div><div class="ps"><h4>Format</h4><ul><li>Online via Zoom + LMS</li><li>Offline bootcamp di Pare, Kediri</li><li>Blended learning hybrid option</li></ul></div><div class="ps"><h4>KPI</h4><div class="pk"><div class="pk-pill"><strong>100+</strong><span>Participants</span></div><div class="pk-pill"><strong>80%</strong><span>Completion Rate</span></div></div></div><div class="pacts"><a href="#training" onclick="closePopup()" class="pb pb-p">View All Programs</a></div>'},
+  phase6:{t:'Phase 6: Certification & Placement',tg:'Nov–Dec 2026',b:'<div class="ps"><h4>Certification Process</h4><ul><li>MEC Internal Assessment (Written + Practical)</li><li>Marlins Test (Minimum Score 60)</li><li>Maritime English Assessment</li><li>Technical Interview dengan Shipping Company</li></ul></div><div class="ps"><h4>Output</h4><ul><li>MEC Competency Certificate</li><li>Digital Certificate dengan QR Verification</li><li>Direct referral ke 20+ shipping company partner</li></ul></div><div class="pacts"><a href="#certification" onclick="closePopup()" class="pb pb-g">View Certification</a><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Daftar</a></div>'},
+  db_total:{t:'Total Database: 1,247',tg:'All Maritime Professionals',b:'<div class="ps"><h4>Breakdown</h4><ul><li>Taruna Pelayaran: 483</li><li>Seafarers: 621</li><li>Officers & Engineers: 234</li><li>Shipping Companies: 143</li><li>Instructors: 74</li></ul></div><div class="ps"><h4>Growth</h4><p>Pertumbuhan <strong style="color:#00FF96">↑23%</strong> bulan ini. Target akhir 2026: 1,000+ qualified database.</p></div><div class="pacts"><a href="https://docs.google.com/spreadsheets" target="_blank" class="pb pb-p">📊 Open Sheets</a></div>'},
+  db_cadet:{t:'Cadet Database: 483',tg:'Taruna Aktif se-Indonesia',b:'<div class="ps"><h4>Data Profile</h4><ul><li>Rata-rata semester 6–8</li><li>Dominan dari POLTEKPEL & STIP</li><li>60% belum punya Marlins Score</li><li>Mayoritas target bekerja di kapal asing</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Lihat Database</a></div>'},
+  db_seafarer:{t:'Seafarer Database: 621',tg:'Pelaut Aktif & Non-Aktif',b:'<div class="ps"><h4>Profile</h4><ul><li>Rating, AB, OS aktif berlayar</li><li>Banyak yang ingin upgrade jabatan</li><li>Target Marlins upgrade ke skor lebih tinggi</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Info Program</a></div>'},
+  db_company:{t:'Company Database: 143',tg:'Shipping Companies Partner',b:'<div class="ps"><h4>Company Types</h4><ul><li>National Shipping Companies (PELNI, etc.)</li><li>Offshore Companies</li><li>International Manning Agencies</li><li>Cruise Lines Partners</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Partnership%20Shipping%20Company" target="_blank" class="pb pb-wa">💬 Daftar Perusahaan</a></div>'},
+  db_hot:{t:'Hot Leads: 87',tg:'Ready to Convert',b:'<div class="ps"><h4>Hot Lead Criteria</h4><ul><li>Sudah kontak via WhatsApp</li><li>Sudah isi survey dengan lengkap</li><li>Aktif di komunitas MEC</li><li>Menanyakan harga program</li></ul></div><div class="ps"><h4>Next Action</h4><p>Follow-up dalam 24 jam via WhatsApp dengan penawaran spesifik sesuai kebutuhan.</p></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Follow Up Now</a></div>'},
+  db_active:{t:'Active Leads: 312',tg:'Engaged Audience',b:'<div class="ps"><h4>Active Lead Criteria</h4><ul><li>Member komunitas yang aktif</li><li>Menonton live stream secara rutin</li><li>Mengisi survey awal</li><li>Berinteraksi di konten sosmed</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Nurture Leads</a></div>'},
+  db_add:{t:'Add Database Member',tg:'Google Forms Integration',b:'<div class="ps"><h4>Data Fields Required</h4><ul><li>Full Name, Phone, Email</li><li>Institution / Company</li><li>Position / Rank</li><li>City, Province</li><li>Skills & Certificates held</li><li>Marlins Score (if any)</li><li>English Score</li></ul></div><div class="ps"><h4>Tools</h4><ul><li>Google Forms untuk input</li><li>Google Sheets untuk storage</li><li>Auto-notify via WhatsApp</li></ul></div><div class="pacts"><a href="https://forms.google.com" target="_blank" class="pb pb-p">📋 Open Google Form</a><a href="https://docs.google.com/spreadsheets" target="_blank" class="pb pb-o">📊 Google Sheets</a></div>'},
+  db_search:{t:'Search Database',tg:'Filter & Find Members',b:'<div class="ps"><h4>Search Filters</h4><ul><li>Filter by Category (Taruna/Seafarer/Officer/etc.)</li><li>Filter by City / Province</li><li>Filter by Marlins Score range</li><li>Filter by Certification status</li><li>Filter by Status (Hot Lead / Active / Registered)</li></ul></div><div class="pacts"><a href="https://docs.google.com/spreadsheets" target="_blank" class="pb pb-p">📊 Open Database</a></div>'},
+  db_export:{t:'Export Database',tg:'Download & Reporting',b:'<div class="ps"><h4>Export Options</h4><ul><li>Excel / CSV format untuk analisis</li><li>PDF report untuk presentation</li><li>Filtered export by kategori atau status</li><li>Auto-scheduled monthly report</li></ul></div><div class="pacts"><a href="https://docs.google.com/spreadsheets" target="_blank" class="pb pb-p">📊 Open Sheets</a></div>'},
+  train_basic:{t:'Basic: Maritime Foundation',tg:'Rp 500,000 | 2 Weeks Online',b:'<div class="ps"><h4>Target Peserta</h4><p>Taruna semester akhir dan fresh graduate yang mempersiapkan diri memasuki industri maritim internasional.</p></div><div class="ps"><h4>Curriculum</h4><ul><li>Maritime English Basics (40 jam)</li><li>Marlins Test Introduction & Practice</li><li>CV/Resume Writing untuk Seafarer</li><li>Interview Preparation Basics</li><li>STCW Overview & Certificate guidance</li></ul></div><div class="ps"><h4>Output</h4><ul><li>MEC Basic Certificate</li><li>Masuk MEC Talent Database</li><li>Priority recommendation ke perusahaan</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Daftar%20Basic%20Training%20MEC%20-%20Rp500K" target="_blank" class="pb pb-wa">💬 Daftar Rp 500K</a></div>'},
+  train_inter:{t:'Intermediate: Career Upgrade',tg:'Rp 1,500,000 | 4 Weeks',b:'<div class="ps"><h4>Target Peserta</h4><p>Seafarer aktif atau fresh graduate yang ingin upgrade karir ke kapal internasional dengan Marlins Score 60+.</p></div><div class="ps"><h4>Curriculum</h4><ul><li>Advanced Maritime English (60 jam)</li><li>Marlins Score 60+ Guarantee Program</li><li>Technical Interview Mastery</li><li>Competency Assessment Full Package</li><li>Job Placement Support & Referral</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Daftar%20Intermediate%20Training%20MEC%20Rp1.5M" target="_blank" class="pb pb-wa">💬 Daftar Rp 1.5M</a></div>'},
+  train_adv:{t:'Advanced: Maritime AI & Leadership',tg:'Rp 3,500,000 | 6 Weeks',b:'<div class="ps"><h4>Target Peserta</h4><p>Officer, Engineer, dan senior seafarer yang ingin memahami transformasi digital maritim dan era Shipping 4.0.</p></div><div class="ps"><h4>Curriculum</h4><ul><li>AI in Maritime Industry 2025–2030</li><li>MASS & Autonomous Shipping</li><li>Digital Navigation & Smart Port</li><li>Maritime Leadership & Management</li><li>MEC Full Certification Package</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Daftar%20Advanced%20Training%20MEC%20Rp3.5M" target="_blank" class="pb pb-wa">💬 Daftar Rp 3.5M</a></div>'},
+  train_corp:{t:'Corporate Maritime Training',tg:'Custom | Starting Rp 25,000,000',b:'<div class="ps"><h4>Untuk Perusahaan</h4><p>Program training khusus sesuai kebutuhan spesifik shipping company — standar, jadwal, lokasi, dan kurikulum sepenuhnya customizable.</p></div><div class="ps"><h4>Options</h4><ul><li>Onsite training di kantor/kapal client</li><li>Online via Zoom/LMS private</li><li>Blended learning hybrid</li><li>Bulk Marlins Assessment (min. 20 pax)</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Request%20Proposal%20Corporate%20Training%20MEC" target="_blank" class="pb pb-wa">💬 Request Proposal</a></div>'},
+  ass_marlins:{t:'Marlins Test Preparation',tg:'Target Score 60+',b:'<div class="ps"><h4>Tentang Marlins Test</h4><p>Marlins Test adalah standar internasional penilaian kemampuan bahasa Inggris maritim, digunakan oleh hampir semua shipping company global.</p></div><div class="ps"><h4>Program MEC</h4><ul><li>500+ bank soal berbasis AI</li><li>Simulasi test kondisi nyata</li><li>Analisis kelemahan personal</li><li>Target minimum skor 60 dengan jaminan</li></ul></div><div class="ps"><h4>Resource Resmi</h4><p>Informasi lebih lanjut: <a href="https://www.marlins.co.uk" target="_blank" style="color:var(--cyan)">marlins.co.uk</a></p></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Daftar%20Marlins%20Test%20Prep%20MEC" target="_blank" class="pb pb-wa">💬 Daftar Program</a></div>'},
+  ass_english:{t:'Maritime English Test',tg:'IMO SMCP Standard',b:'<div class="ps"><h4>Standard</h4><p>Mengacu pada IMO Standard Marine Communication Phrases (SMCP) — standar global wajib untuk semua perwira kapal.</p></div><div class="ps"><h4>Assessment Areas</h4><ul><li>Speaking: Bridge communication, emergency</li><li>Listening: Radio communication, AIS messages</li><li>Reading: Cargo docs, technical manuals</li><li>Writing: Logbook entries, incident reports</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Daftar%20English%20Assessment%20MEC" target="_blank" class="pb pb-wa">💬 Daftar Assessment</a></div>'},
+  ass_interview:{t:'Interview Assessment',tg:'Real Company Mock Interview',b:'<div class="ps"><h4>Program</h4><p>Mock interview session dengan crew manager asli dari shipping company partner MEC. Feedback dan coaching langsung pasca interview.</p></div><div class="ps"><h4>Interview Format</h4><ul><li>Technical competency questions</li><li>Safety scenario assessment</li><li>Maritime English conversation</li><li>Personality & attitude evaluation</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Book%20Mock%20Interview%20MEC" target="_blank" class="pb pb-wa">💬 Book Interview</a></div>'},
+  ass_technical:{t:'Technical Competency Test',tg:'STCW & SNI Aligned',b:'<div class="ps"><h4>Tests Available</h4><ul><li>Deck: Navigation, Watch-keeping, Cargo Handling</li><li>Engine: Main Engine, Auxiliary, Electrical Systems</li><li>Safety: Fire Fighting, LSA, Medical First Aid</li></ul></div><div class="ps"><h4>Reference Standard</h4><p>Berbasis STCW 2010 Manila Amendments dan SNI Indonesia. Diakui shipping company partner MEC.</p></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Daftar%20Technical%20Test%20MEC" target="_blank" class="pb pb-wa">💬 Daftar Test</a></div>'},
+  cert_mec:{t:'MEC Competency Certificate',tg:'Flagship — Most Valued',b:'<div class="ps"><h4>Tentang Sertifikat</h4><p>Sertifikat utama MEC yang menjamin kompetensi holder dalam Maritime English, Technical Knowledge, dan Interview Skills.</p></div><div class="ps"><h4>Requirements</h4><ul><li>Lulus Marlins Test minimal skor 60</li><li>Lulus Maritime English Assessment</li><li>Lulus Technical Competency Test</li><li>Lulus Mock Interview MEC</li></ul></div><div class="ps"><h4>Value</h4><ul><li>Diakui oleh 20+ shipping company partner</li><li>Digital certificate dengan QR verification</li><li>Masuk MEC Certified Candidate List</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Info%20MEC%20Certificate" target="_blank" class="pb pb-g">💬 Dapatkan Sertifikat</a></div>'},
+  cert_eng:{t:'Maritime English Certificate',tg:'IMO Standard',b:'<div class="ps"><h4>Deskripsi</h4><p>Bukti kemampuan Maritime English sesuai standar IMO SMCP. Valid untuk aplikasi kerja ke kapal internasional dan dicantumkan di CV.</p></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Info & Daftar</a></div>'},
+  cert_digital:{t:'Digital Certificate',tg:'QR Verified — LinkedIn Ready',b:'<div class="ps"><h4>Features</h4><ul><li>QR code untuk verifikasi online instant</li><li>PDF format high-resolution</li><li>Mudah dibagikan di LinkedIn</li><li>Valid & verifiable oleh siapapun</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Info Certificate</a></div>'},
+  rec_candidate:{t:'Register as MEC Candidate',tg:'Free Registration — 7 Steps to Ship',b:'<div class="ps"><h4>7-Step Process</h4><ul><li>1. Register online (GRATIS)</li><li>2. Placement Assessment</li><li>3. Pilih program training sesuai level</li><li>4. Ikuti training & assessment</li><li>5. Dapatkan MEC Certificate</li><li>6. Referral ke shipping company partner</li><li>7. Interview & Ditempatkan di Kapal</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Daftar%20MEC%20Candidate%202026" target="_blank" class="pb pb-wa">💬 Daftar Gratis</a><a href="https://forms.google.com" target="_blank" class="pb pb-p">📋 Online Form</a></div>'},
+  rec_company:{t:'Partner Shipping Company',tg:'Recruitment Partnership',b:'<div class="ps"><h4>Benefits untuk Perusahaan</h4><ul><li>Akses database 1,000+ certified candidates</li><li>Pre-screened dengan Marlins Score 60+</li><li>Interview candidates yang sudah trained MEC</li><li>Zero placement fee untuk partner terdaftar</li><li>Customized bulk training program</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Partnership%20Shipping%20Company%20MEC%202026" target="_blank" class="pb pb-wa">💬 Daftar Perusahaan</a></div>'},
+  rec_process:{t:'Placement Process',tg:'7-Step Systematic Approach',b:'<div class="ps"><h4>Steps</h4><ul><li>Register → Free placement assessment</li><li>Assessment → Identify gaps & needs</li><li>Training → Targeted program 2–6 weeks</li><li>Certification → MEC certificate awarded</li><li>Matching → Database matched ke vacancy</li><li>Interview → Mock + real company interview</li><li>Placed → Onboard & deployed to ship</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Mulai Proses</a></div>'},
+  part_shipping:{t:'Shipping Company Partner',tg:'Strategic Partnership Package',b:'<div class="ps"><h4>Partnership Package</h4><ul><li>Logo branding di website & semua media MEC</li><li>Priority access ke MEC certified candidates</li><li>Customized training dengan nama perusahaan</li><li>Live streaming & webinar co-branding</li><li>Direct recruitment pipeline</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Partnership%20Shipping%20Company%20MEC" target="_blank" class="pb pb-wa">💬 Diskusi Partnership</a></div>'},
+  part_academy:{t:'Maritime Academy Partner',tg:'Academic Partnership & MoU',b:'<div class="ps"><h4>Bentuk Kerjasama</h4><ul><li>MoU resmi antara akademi dan MEC</li><li>Joint training program untuk taruna</li><li>Penempatan taruna ke kapal via jaringan MEC</li><li>Guest lecturer dari MEC ke akademi</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Partnership%20Akademi%20MEC%202026" target="_blank" class="pb pb-wa">💬 Diskusi MoU</a></div>'},
+  part_instructor:{t:'Become MEC Instructor',tg:'Revenue Sharing Program',b:'<div class="ps"><h4>Requirements</h4><ul><li>Minimum ANT-II / ATT-II atau setara</li><li>Pengalaman mengajar minimal 3 tahun</li><li>Kemampuan komunikasi yang baik</li><li>Komitmen minimal 4 jam/minggu</li></ul></div><div class="ps"><h4>Kompensasi</h4><ul><li>Revenue sharing 30–50% dari program yang diajarkan</li><li>Honorarium live streaming sebagai guest</li><li>Branding sebagai MEC Certified Instructor</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Daftar%20Instructor%20MEC%202026" target="_blank" class="pb pb-wa">💬 Daftar Instructor</a></div>'},
+  part_investor:{t:'Investor & Sponsor',tg:'Investment Opportunity 2026',b:'<div class="ps"><h4>Investment Options</h4><ul><li>Seed investment untuk platform tech</li><li>Program sponsorship (named sponsor)</li><li>Scholarship fund partnership</li><li>Revenue sharing model</li></ul></div><div class="ps"><h4>Revenue Projection 2026</h4><ul><li>Q1-Q2: Rp 50-100M (training + webinar)</li><li>Q3-Q4: Rp 150-250M (corporate + placement)</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Investment%20Inquiry%20MEC%202026" target="_blank" class="pb pb-wa">💬 Investment Inquiry</a></div>'},
+  live_sop:{t:'Live Streaming SOP',tg:'Standard Operating Procedure',b:'<div class="ps"><h4>Host Responsibilities</h4><ul><li>Host Daily Live sesuai jadwal</li><li>Interview Guests (pre-recorded format)</li><li>Promote MEC Programs selama live</li><li>Manage audience questions & engagement</li><li>Generate leads via CTA di setiap sesi</li><li>Follow SOP script yang sudah disiapkan</li></ul></div><div class="ps"><h4>KPI Host Bulanan</h4><div class="pk"><div class="pk-pill"><strong>20+</strong><span>Live Hours</span></div><div class="pk-pill"><strong>5K+</strong><span>Viewers</span></div><div class="pk-pill"><strong>50+</strong><span>Leads</span></div></div></div><div class="pacts"><a href="https://www.tiktok.com/@rafaelsukirno" target="_blank" class="pb pb-tk">🎵 TikTok Live</a><a href="https://www.youtube.com/@RafaelSukirno" target="_blank" class="pb pb-yt">▶️ YouTube</a></div>'},
+  team_rafael:{t:'Rafael Sukirno, CE',tg:'Founder & Academic Director',b:'<div class="ps"><h4>Role di MEC</h4><ul><li>Strategic Vision & Academic Direction</li><li>Chief Content Authority</li><li>Main Live Streaming Host</li><li>Curriculum Design Lead</li></ul></div><div class="ps"><h4>Background</h4><p>30+ tahun seafaring, instructor di POLTEKPEL Surabaya & Univ. Hang Tuah. Under Yayasan LMMES, Kampung Inggris Pare, Kediri.</p></div><div class="pacts"><a href="https://www.tiktok.com/@rafaelsukirno" target="_blank" class="pb pb-tk">🎵 TikTok</a><a href="https://www.youtube.com/@RafaelSukirno" target="_blank" class="pb pb-yt">▶️ YouTube</a><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 WA</a></div>'},
+  team_gid:{t:'Gus Wid',tg:'Strategic Director — MEC 2026',b:'<div class="ps"><h4>Role</h4><ul><li>Organizational Strategy</li><li>Yayasan LMMES Management</li><li>Partnership Development</li><li>Financial Oversight</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Hubungi MEC</a></div>'},
+  team_lutfi:{t:'Mas Lutfi',tg:'Operations Manager — MEC 2026',b:'<div class="ps"><h4>Role</h4><ul><li>Daily Operations Management</li><li>Team Coordination</li><li>Admin Database</li><li>SOP Development & Management</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 Hubungi MEC</a></div>'},
+  team_content:{t:'Content Creator Team',tg:'TikTok / Social Media',b:'<div class="ps"><h4>Responsibilities</h4><ul><li>Daily content production (TikTok, IG, FB)</li><li>Video editing & production</li><li>Social media management</li><li>Engagement & community response</li></ul></div><div class="ps"><h4>KPI Bulanan</h4><div class="pk"><div class="pk-pill"><strong>30+</strong><span>Posts</span></div><div class="pk-pill"><strong>10K+</strong><span>Reach</span></div></div></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Bergabung%20sebagai%20Content%20Creator%20MEC" target="_blank" class="pb pb-wa">💬 Join Team</a></div>'},
+  team_comm:{t:'Community Manager',tg:'All Platforms Admin',b:'<div class="ps"><h4>Responsibilities</h4><ul><li>WhatsApp & Telegram admin harian</li><li>Member engagement & moderation</li><li>Lead qualification dari komunitas</li><li>Survey distribution & follow-up</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Bergabung%20sebagai%20Community%20Manager%20MEC" target="_blank" class="pb pb-wa">💬 Join Team</a></div>'},
+  team_db:{t:'Database Admin',tg:'Google Sheets / CRM',b:'<div class="ps"><h4>Responsibilities</h4><ul><li>Data entry & validation harian</li><li>Google Forms integration management</li><li>Monthly reporting & analytics</li><li>Lead tracking & status update</li></ul></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Bergabung%20sebagai%20Database%20Admin%20MEC" target="_blank" class="pb pb-wa">💬 Join Team</a></div>'},
+  form_sent:{t:'Terima Kasih! 🎉',tg:'Pendaftaran Berhasil Diterima',b:'<div class="ps"><h4>Next Steps</h4><ul><li>Tim MEC akan menghubungi Anda dalam 1x24 jam</li><li>Siapkan dokumen: KTP, Ijazah, Sertifikat Kompetensi</li><li>Join WhatsApp Group untuk info terbaru</li></ul></div><div class="ps"><h4>Atau Hubungi Langsung</h4><p>WhatsApp: <a href="https://wa.me/6281234567890" target="_blank" style="color:var(--cyan)">+62 812-3456-7890</a></p></div><div class="pacts"><a href="https://wa.me/6281234567890?text=Halo%20MEC,%20saya%20sudah%20mengisi%20form%20pendaftaran" target="_blank" class="pb pb-wa">💬 Konfirmasi via WA</a><button class="pb pb-o" onclick="closePopup()">✓ Tutup</button></div>'}
+};
+
+function showPopup(key){
+  var d=PD[key]||{t:'MEC 2026',tg:'Maritime Ecosystem Camp',b:'<div class="ps"><p>Informasi segera tersedia. Hubungi kami via WhatsApp untuk info lebih lanjut.</p></div><div class="pacts"><a href="https://wa.me/6281234567890" target="_blank" class="pb pb-wa">💬 WhatsApp MEC</a></div>'};
+  document.getElementById('ptit').textContent=d.t;
+  document.getElementById('ptag').textContent=d.tg;
+  document.getElementById('pbdy').innerHTML=d.b;
+  document.getElementById('pov').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closePopup(){
+  document.getElementById('pov').classList.remove('on');
+  document.body.style.overflow='';
+}
+function overlayClose(e){if(e.target===document.getElementById('pov'))closePopup();}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closePopup();});
+</script>
+</body>
+</html>
